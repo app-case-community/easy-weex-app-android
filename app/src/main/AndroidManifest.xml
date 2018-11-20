@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="top.flyma.easy.weex">
+
+    <application
+            tools:replace="android:allowBackup"
+            android:hardwareAccelerated="true"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:name=".App"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <activity android:name="top.flyma.easy.weex.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.alibaba.weex.WXPageActivity"
+                  android:label="@string/scan"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="top.flyme.easy.android.intent.action.WEEX"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="top.flyme.easy.android.intent.category.WEEX"/>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <data android:scheme="http"/>
+                <data android:scheme="https"/>
+                <data android:scheme="file"/>
+                <data android:scheme="wxpage" />
+            </intent-filter>
+        </activity>
+        <provider
+                android:name="android.support.v4.content.FileProvider"
+                android:authorities="top.flyma.easy.weex.fileprovider"
+                android:grantUriPermissions="true"
+                android:exported="false">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/filepaths" />
+        </provider>
+    </application>
+
+</manifest>
