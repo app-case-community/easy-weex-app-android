@@ -31,9 +31,9 @@ import com.taobao.weex.adapter.IWXImgLoaderAdapter;
 import com.taobao.weex.common.WXImageStrategy;
 import com.taobao.weex.dom.WXImageQuality;
 
-public class ImageAdapter implements IWXImgLoaderAdapter {
+public class PicassoImageAdapter implements IWXImgLoaderAdapter {
 
-  public ImageAdapter() {
+  public PicassoImageAdapter() {
   }
 
   @Override

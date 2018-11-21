@@ -1,0 +1,34 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "com.android.support:support-annotations:$supportLibVersion"
+    debugImplementation "com.taobao.android:weex_sdk:$weexVersion:debug@aar"
+    releaseImplementation "com.taobao.android:weex_sdk:$weexVersion:release@aar"
+
+    implementation "com.facebook.fresco:fresco:$frescoVersion"
+    implementation "com.facebook.fresco:animated-gif:$frescoVersion"
+}
