@@ -41,4 +41,6 @@ dependencies {
 
     implementation project(':weex')
 
+    implementation 'com.yanzhenjie:permission:2.0.0-rc12'
+
 }

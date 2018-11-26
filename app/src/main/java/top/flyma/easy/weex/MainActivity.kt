@@ -7,6 +7,17 @@ import android.view.View
 import android.widget.Toast
 import com.alibaba.weex.CaptureActivity
 import com.taobao.weex.WXSDKEngine
+import android.R.attr.data
+import android.app.Activity
+import android.net.Uri
+import android.provider.Settings
+import com.taobao.weex.utils.WXLogUtils
+import com.yanzhenjie.permission.AndPermission
+import com.yanzhenjie.permission.Permission
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,24 +33,21 @@ class MainActivity : AppCompatActivity() {
 
     fun onClick(view: View) {
         if (view.id == R.id.btnScan) {
-            var intent: Intent = Intent(this, CaptureActivity::class.java)
-            startActivity(intent)
-//            var intent = IntentIntegrator(this)
-//            intent.addExtra(Intents.Scan.SCAN_TYPE, Intents.Scan.QR_CODE_MODE)
-//            intent.initiateScan()
+            AndPermission.with(this)
+                .runtime()
+                .permission(Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE)
+                .onGranted {
+                    var intent: Intent = Intent(this@MainActivity, CaptureActivity::class.java)
+                    startActivity(intent)
+                }
+                .onDenied {
+                    val packageURI = Uri.parse("package:$packageName")
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    Toast.makeText(this@MainActivity, "没有权限无法扫描呦", Toast.LENGTH_LONG).show()
+                }.start()
         }
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        var result = IntentIntegrator.parseActivityResult(requestCode, resultCode , data)
-//        if (result != null) {
-//            if(result.getContents() == null) {
-//                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
-//            } else {
-//                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show()
-//            }
-//        } else {
-//            super.onActivityResult(requestCode, resultCode, data)
-//        }
-//    }
 }
