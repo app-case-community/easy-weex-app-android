@@ -15,8 +15,9 @@ import com.taobao.weex.utils.WXLogUtils
 import com.yanzhenjie.permission.AndPermission
 import com.yanzhenjie.permission.Permission
 import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-
-
+import android.text.TextUtils
+import com.alibaba.weex.WXPageActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -47,6 +48,14 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     Toast.makeText(this@MainActivity, "没有权限无法扫描呦", Toast.LENGTH_LONG).show()
                 }.start()
+        } else if (view.id == R.id.btnGo) run {
+            if (TextUtils.isEmpty(editText.text)) {
+                Toast.makeText(this, "请输入地址", Toast.LENGTH_SHORT).show()
+                return
+            }
+            var intent: Intent = Intent(this, WXPageActivity::class.java)
+            intent.putExtra("bundleUrl", editText.text.toString())
+            startActivity(intent)
         }
     }
 

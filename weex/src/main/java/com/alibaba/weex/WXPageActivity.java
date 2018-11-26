@@ -52,6 +52,7 @@ import com.alibaba.weex.https.HotRefreshManager;
 import com.alibaba.weex.https.WXHttpManager;
 import com.alibaba.weex.https.WXHttpTask;
 import com.alibaba.weex.https.WXRequestListener;
+import com.jaeger.library.StatusBarUtil;
 import com.taobao.weex.IWXRenderListener;
 import com.taobao.weex.RenderContainer;
 import com.taobao.weex.WXEnvironment;
@@ -215,7 +216,7 @@ public class WXPageActivity extends WXBaseActivity implements IWXRenderListener,
       }
       actionBar.setTitle(title);
     }
-
+    StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary));
     mContainer = (ViewGroup) findViewById(R.id.container);
     mProgressBar = (ProgressBar) findViewById(R.id.progress);
     mWXHandler = new Handler(this);

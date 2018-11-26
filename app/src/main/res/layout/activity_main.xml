@@ -32,12 +32,31 @@
                 android:layout_height="match_parent"
                 android:background="#ffffff">
 
-            <Button
-                    android:text="扫描"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onClick"
-                    android:id="@+id/btnScan"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                <Button
+                        android:text="扫描"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onClick"
+                        android:id="@+id/btnScan"/>
+                <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:textSize="12sp"
+                        android:text="http://oss.zhuzhe.wang/dist/weex/js/index.js"
+                        android:ems="10"
+                        android:id="@+id/editText" />
+                <Button
+                        android:text="go"
+                        android:onClick="onClick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnGo"/>
+            </LinearLayout>
         </FrameLayout>
 
     </FrameLayout>
