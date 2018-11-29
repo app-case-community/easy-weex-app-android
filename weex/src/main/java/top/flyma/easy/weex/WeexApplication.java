@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 import com.alibaba.android.bindingx.plugin.weex.BindingX;
+import com.alibaba.weex.commons.FrescoUtil;
 import com.alibaba.weex.commons.adapter.DefaultWebSocketAdapterFactory;
+import com.alibaba.weex.commons.adapter.FrescoImageAdapter;
+import com.alibaba.weex.commons.adapter.FrescoImageComponent;
 import com.alibaba.weex.commons.adapter.JSExceptionAdapter;
-import com.alibaba.weex.commons.adapter.PicassoImageAdapter;
 import com.alibaba.weex.extend.adapter.DefaultAccessibilityRoleAdapter;
 import com.alibaba.weex.extend.adapter.InterceptWXHttpAdapter;
 import com.alibaba.weex.extend.component.RichText;
@@ -22,6 +24,8 @@ import com.taobao.weex.bridge.WXBridgeManager;
 import com.taobao.weex.common.WXException;
 import top.flyma.easy.weex.extend.module.NativeModule;
 
+//import com.alibaba.weex.commons.adapter.PicassoImageAdapter;
+
 public class WeexApplication extends Application {
     @Override
     public void onCreate() {
@@ -35,7 +39,7 @@ public class WeexApplication extends Application {
 
         WXSDKEngine.initialize(this,
                 new InitConfig.Builder()
-                        .setImgAdapter(new PicassoImageAdapter())
+                        .setImgAdapter(new FrescoImageAdapter())
                         .setWebSocketAdapterFactory(new DefaultWebSocketAdapterFactory())
                         .setJSExceptionAdapter(new JSExceptionAdapter())
                         .setHttpAdapter(new InterceptWXHttpAdapter())
@@ -45,6 +49,7 @@ public class WeexApplication extends Application {
         WXSDKManager.getInstance().setAccessibilityRoleAdapter(new DefaultAccessibilityRoleAdapter());
 
         try {
+            FrescoUtil.init(getApplicationContext());
             WXSDKEngine.registerComponent("synccomponent", WXComponentSyncTest.class);
             WXSDKEngine.registerComponent(WXParallax.PARALLAX, WXParallax.class);
 
@@ -66,8 +71,8 @@ public class WeexApplication extends Application {
             loadPlugins();
             /**
              * override default image tag
-             * WXSDKEngine.registerComponent("image", FrescoImageComponent.class);
              */
+            WXSDKEngine.registerComponent("image", FrescoImageComponent.class);
 
             //Typeface nativeFont = Typeface.createFromAsset(getAssets(), "font/native_font.ttf");
             //WXEnvironment.setGlobalFontFamily("bolezhusun", nativeFont);

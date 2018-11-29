@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.widget.Toast;
 import cn.bertsir.zbar.QrConfig;
@@ -15,7 +16,8 @@ import com.taobao.weex.WXSDKEngine;
 
 public class QrUtils {
     public static void startQr(final Context context) {
-        int colorPrimary = context.getResources().getIdentifier("colorPrimary", "color", context.getPackageName());
+        int colorPrimaryId = context.getResources().getIdentifier("colorPrimary", "color", context.getPackageName());
+        int colorPrimary = ContextCompat.getColor(context, colorPrimaryId);
         QrConfig qrConfig = new QrConfig.Builder()
                 .setDesText("(识别二维码)")//扫描框下文字
                 .setShowDes(false)//是否显示扫描框下面文字

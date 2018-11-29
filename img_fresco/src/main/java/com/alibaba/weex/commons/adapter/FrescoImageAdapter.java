@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,15 +18,12 @@
  */
 package com.alibaba.weex.commons.adapter;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
-
 import com.facebook.common.executors.UiThreadImmediateExecutorService;
 import com.facebook.common.internal.Preconditions;
 import com.facebook.common.logging.FLog;
@@ -94,31 +91,31 @@ public class FrescoImageAdapter implements IWXImgLoaderAdapter {
                         .setProgressiveRenderingEnabled(false)
                         .build();
 
-                if(view instanceof DraweeView){
-                    Log.d("FrescoImageAdapter","load: "+url);
+                if (view instanceof DraweeView) {
+                    Log.d("FrescoImageAdapter", "load: " + url);
                     ControllerListener controllerListener = new BaseControllerListener<ImageInfo>() {
                         @Override
                         public void onFinalImageSet(
-                            String id,
-                            @Nullable ImageInfo imageInfo,
-                            @Nullable Animatable anim) {
+                                String id,
+                                @Nullable ImageInfo imageInfo,
+                                @Nullable Animatable anim) {
                             if (imageInfo == null) {
                                 return;
                             }
                             QualityInfo qualityInfo = imageInfo.getQualityInfo();
                             FLog.d("Final image received! " +
-                                    "Size %d x %d",
-                                "Quality level %d, good enough: %s, full quality: %s",
-                                imageInfo.getWidth(),
-                                imageInfo.getHeight(),
-                                qualityInfo.getQuality(),
-                                qualityInfo.isOfGoodEnoughQuality(),
-                                qualityInfo.isOfFullQuality());
+                                            "Size %d x %d",
+                                    "Quality level %d, good enough: %s, full quality: %s",
+                                    imageInfo.getWidth(),
+                                    imageInfo.getHeight(),
+                                    qualityInfo.getQuality(),
+                                    qualityInfo.isOfGoodEnoughQuality(),
+                                    qualityInfo.isOfFullQuality());
                         }
 
                         @Override
                         public void onIntermediateImageSet(String id, @Nullable ImageInfo imageInfo) {
-                            FLog.d("","Intermediate image received");
+                            FLog.d("", "Intermediate image received");
                         }
 
                         @Override
@@ -127,45 +124,45 @@ public class FrescoImageAdapter implements IWXImgLoaderAdapter {
                         }
                     };
                     DraweeController controller = Fresco.newDraweeControllerBuilder()
-                        .setAutoPlayAnimations(true)
-                        .setControllerListener(controllerListener)
-                        .setUri(uri)
-                        .setImageRequest(request)
-                        .build();
-                    ((DraweeView)view).setController(controller);
+                            .setAutoPlayAnimations(true)
+                            .setControllerListener(controllerListener)
+                            .setUri(uri)
+                            .setImageRequest(request)
+                            .build();
+                    ((DraweeView) view).setController(controller);
 
-                }else {
+                } else {
                     ImagePipeline imagePipeline = Fresco.getImagePipeline();
                     DataSource<CloseableReference<CloseableImage>>
-                        dataSource = imagePipeline.fetchDecodedImage(request, new Object());
+                            dataSource = imagePipeline.fetchDecodedImage(request, new Object());
                     DataSubscriber dataSubscriber =
-                        new BaseDataSubscriber<CloseableReference<CloseableImage>>() {
-                            @Override
-                            public void onNewResultImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
+                            new BaseDataSubscriber<CloseableReference<CloseableImage>>() {
+                                @Override
+                                public void onNewResultImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
 
-                                CloseableReference<CloseableImage> imageReference = dataSource.getResult();
-                                if (imageReference != null) {
-                                    try {
-                                        // do something with the image
-                                        Preconditions.checkState(CloseableReference.isValid(imageReference));
-                                        CloseableImage closeableImage = imageReference.get();
-                                        if (closeableImage instanceof CloseableStaticBitmap) {
-                                            CloseableStaticBitmap closeableStaticBitmap = (CloseableStaticBitmap) closeableImage;
-                                            view.setImageBitmap(closeableStaticBitmap.getUnderlyingBitmap());
-                                            // boolean hasResult =  null != closeableStaticBitmap.getUnderlyingBitmap();
-                                        } else {
-                                            throw new UnsupportedOperationException("Unrecognized image class: " + closeableImage);
+                                    CloseableReference<CloseableImage> imageReference = dataSource.getResult();
+                                    if (imageReference != null) {
+                                        try {
+                                            // do something with the image
+                                            Preconditions.checkState(CloseableReference.isValid(imageReference));
+                                            CloseableImage closeableImage = imageReference.get();
+                                            if (closeableImage instanceof CloseableStaticBitmap) {
+                                                CloseableStaticBitmap closeableStaticBitmap = (CloseableStaticBitmap) closeableImage;
+                                                view.setImageBitmap(closeableStaticBitmap.getUnderlyingBitmap());
+                                                // boolean hasResult =  null != closeableStaticBitmap.getUnderlyingBitmap();
+                                            } else {
+                                                throw new UnsupportedOperationException("Unrecognized image class: " + closeableImage);
+                                            }
+                                        } finally {
+                                            imageReference.close();
                                         }
-                                    } finally {
-                                        imageReference.close();
                                     }
                                 }
-                            }
 
-                            @Override
-                            public void onFailureImpl(DataSource dataSource) {
-                            }
-                        };
+                                @Override
+                                public void onFailureImpl(DataSource dataSource) {
+                                }
+                            };
 
                     dataSource.subscribe(dataSubscriber, UiThreadImmediateExecutorService.getInstance());
                 }
