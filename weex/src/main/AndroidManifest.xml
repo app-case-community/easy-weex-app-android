@@ -18,26 +18,4 @@
     <uses-feature android:name="android.hardware.camera.autofocus"/>
     <uses-feature android:glEsVersion="0x00020000" />
 
-    <application>
-        <activity android:name="com.alibaba.weex.CaptureActivity"
-                  android:clearTaskOnLaunch="true"
-                  android:screenOrientation="portrait"
-                  android:stateNotNeeded="true"
-                  android:theme="@style/AppTheme.NoActionBar"
-                  android:windowSoftInputMode="stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="com.google.zxing.client.android.SCAN"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-
-                <data android:host="zxing.appspot.com" android:path="/scan" android:scheme="http"/>
-            </intent-filter>
-        </activity>
-    </application>
 </manifest>

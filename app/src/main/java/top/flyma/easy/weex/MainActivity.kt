@@ -1,23 +1,19 @@
 package top.flyma.easy.weex
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
+import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
-import com.alibaba.weex.CaptureActivity
+import com.alibaba.weex.WXPageActivity
 import com.taobao.weex.WXSDKEngine
-import android.R.attr.data
-import android.app.Activity
-import android.net.Uri
-import android.provider.Settings
-import com.taobao.weex.utils.WXLogUtils
 import com.yanzhenjie.permission.AndPermission
 import com.yanzhenjie.permission.Permission
-import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-import android.text.TextUtils
-import com.alibaba.weex.WXPageActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import top.flyma.easy.weex.utils.QrUtils
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,8 +34,9 @@ class MainActivity : AppCompatActivity() {
                 .runtime()
                 .permission(Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE)
                 .onGranted {
-                    var intent: Intent = Intent(this@MainActivity, CaptureActivity::class.java)
-                    startActivity(intent)
+                    //                    var intent: Intent = Intent(this@MainActivity, CaptureActivity::class.java)
+//                    startActivity(intent)
+                    QrUtils.startQr(this@MainActivity)
                 }
                 .onDenied {
                     val packageURI = Uri.parse("package:$packageName")

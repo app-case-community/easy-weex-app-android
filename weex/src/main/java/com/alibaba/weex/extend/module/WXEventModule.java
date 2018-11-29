@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,12 +27,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.widget.Toast;
-
-import com.alibaba.weex.CaptureActivity;
 import com.alibaba.weex.WXPageActivity;
 import com.taobao.weex.annotation.JSMethod;
 import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXModule;
+import top.flyma.easy.weex.utils.QrUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,77 +39,80 @@ import java.util.Map;
 
 public class WXEventModule extends WXModule {
 
-  public static final String WEEX_CATEGORY = "top.flyme.easy.android.intent.category.WEEX";
-  private static final String WEEX_ACTION = "top.flyme.easy.android.intent.action.WEEX";
+    public static final String WEEX_CATEGORY = "top.flyme.easy.android.intent.category.WEEX";
+    private static final String WEEX_ACTION = "top.flyme.easy.android.intent.action.WEEX";
 
-  private static final int CAMERA_PERMISSION_REQUEST_CODE = 0x9;
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 0x9;
 
 
-  @JSMethod(uiThread = true)
-  public void openURL(String url) {
-    if (TextUtils.isEmpty(url)) {
-      return;
-    }
-    String scheme = Uri.parse(url).getScheme();
-    StringBuilder builder = new StringBuilder();
-
-    if ("weex://go/scan".equals(url)) {
-      if (ContextCompat.checkSelfPermission(mWXSDKInstance.getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) mWXSDKInstance.getContext(), Manifest.permission.CAMERA)) {
-          Toast.makeText(mWXSDKInstance.getContext(), "Weex playground need the camera permission to scan QR code", Toast.LENGTH_SHORT).show();
-        } else {
-          ActivityCompat.requestPermissions((Activity) mWXSDKInstance.getContext(), new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+    @JSMethod(uiThread = true)
+    public void openURL(String url) {
+        if (TextUtils.isEmpty(url)) {
+            return;
         }
-      } else {
-        mWXSDKInstance.getContext().startActivity(new Intent(mWXSDKInstance.getContext(), CaptureActivity.class));
-      }
-      return;
+        String scheme = Uri.parse(url).getScheme();
+        StringBuilder builder = new StringBuilder();
+
+        if ("weex://go/scan".equals(url)) {
+            if (ContextCompat.checkSelfPermission(mWXSDKInstance.getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) mWXSDKInstance.getContext(), Manifest.permission.CAMERA)) {
+                    Toast.makeText(mWXSDKInstance.getContext(), "Weex playground need the camera permission to scan QR code", Toast.LENGTH_SHORT).show();
+                } else {
+                    ActivityCompat.requestPermissions((Activity) mWXSDKInstance.getContext(), new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+                }
+            } else {
+                QrUtils.startQr(mWXSDKInstance.getContext());
+//        mWXSDKInstance.getContext().startActivity(new Intent(mWXSDKInstance.getContext(), CaptureActivity.class));
+            }
+            return;
+        }
+
+        if (TextUtils.equals("http", scheme) || TextUtils.equals("https", scheme) || TextUtils.equals("file", scheme)) {
+            builder.append(url);
+        } else {
+            builder.append("http:");
+            builder.append(url);
+        }
+
+        Uri uri = Uri.parse(builder.toString());
+        Intent intent = new Intent(mWXSDKInstance.getContext(), WXPageActivity.class);
+        intent.setAction(WEEX_ACTION);
+        intent.setData(uri);
+        intent.addCategory(WEEX_CATEGORY);
+        mWXSDKInstance.getContext().startActivity(intent);
+
+        if (mWXSDKInstance.checkModuleEventRegistered("event", this)) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("param1", "param1");
+            params.put("param2", "param2");
+            params.put("param3", "param3");
+            mWXSDKInstance.fireModuleEvent("event", this, params);
+        }
     }
 
-    if (TextUtils.equals("http", scheme) || TextUtils.equals("https", scheme) || TextUtils.equals("file", scheme)) {
-      builder.append(url);
-    } else {
-      builder.append("http:");
-      builder.append(url);
+    /*
+     * a test method for macaca case, you can fire globalEvent when download finish、device shaked and so on.
+     * @param event event name
+     * */
+    @JSMethod(uiThread = true)
+    public void fireNativeGlobalEvent(String event, JSCallback callback) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("eventParam", "value");
+
+        mWXSDKInstance.fireGlobalEventCallback(event, params);
+        if (null != callback) {
+            Map<String, Boolean> result = new HashMap<String, Boolean>();
+            result.put("ok", true);
+            callback.invoke(result);
+        }
     }
 
-    Uri uri = Uri.parse(builder.toString());
-    Intent intent = new Intent(mWXSDKInstance.getContext(),WXPageActivity.class);
-    intent.setAction(WEEX_ACTION);
-    intent.setData(uri);
-    intent.addCategory(WEEX_CATEGORY);
-    mWXSDKInstance.getContext().startActivity(intent);
-
-    if (mWXSDKInstance.checkModuleEventRegistered("event", this)) {
-      HashMap<String,Object> params=new HashMap<>();
-      params.put("param1","param1");
-      params.put("param2","param2");
-      params.put("param3","param3");
-      mWXSDKInstance.fireModuleEvent("event", this, params);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//      mWXSDKInstance.getContext().startActivity(new Intent(mWXSDKInstance.getContext(), CaptureActivity.class));
+            QrUtils.startQr(mWXSDKInstance.getContext());
+        }
     }
-  }
-  /*
-   * a test method for macaca case, you can fire globalEvent when download finish、device shaked and so on.
-   * @param event event name
-  * */
-  @JSMethod(uiThread = true)
-  public void fireNativeGlobalEvent(String event, JSCallback callback) {
-    Map<String,Object> params=new HashMap<String,Object>();
-    params.put("eventParam","value");
-
-    mWXSDKInstance.fireGlobalEventCallback(event, params);
-    if (null != callback) {
-      Map<String, Boolean> result = new HashMap<String, Boolean>();
-      result.put("ok",true);
-      callback.invoke(result);
-    }
-  }
-
-  @Override
-  public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    if (requestCode == CAMERA_PERMISSION_REQUEST_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-      mWXSDKInstance.getContext().startActivity(new Intent(mWXSDKInstance.getContext(), CaptureActivity.class));
-    }
-  }
 }
