@@ -23,10 +23,13 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import com.facebook.drawee.drawable.ScalingUtils;
+import com.facebook.drawee.generic.RoundingParams;
 import com.taobao.weex.WXSDKInstance;
+import com.taobao.weex.common.Constants;
 import com.taobao.weex.ui.action.BasicComponentData;
 import com.taobao.weex.ui.component.WXImage;
 import com.taobao.weex.ui.component.WXVContainer;
+import com.taobao.weex.utils.WXViewUtils;
 
 /**
  * Created by sospartan on 8/19/16.
@@ -45,9 +48,13 @@ public class FrescoImageComponent extends WXImage {
     }
 
     @Override
+    public FrescoImageView getHostView() {
+        return (FrescoImageView) super.getHostView();
+    }
+
+    @Override
     public void setResize(String resize) {
-        FrescoImageView view = (FrescoImageView) getHostView();
-        view.getHierarchy().setActualImageScaleType(getImageScaleType(resize));
+        getHostView().getHierarchy().setActualImageScaleType(getImageScaleType(resize));
     }
 
     private ScalingUtils.ScaleType getImageScaleType(String resizeMode) {
@@ -70,5 +77,39 @@ public class FrescoImageComponent extends WXImage {
                 break;
         }
         return scaleType;
+    }
+
+    @Override
+    public void setBorderRadius(String key, float borderRadius) {
+        if (borderRadius > 0) {
+            float val = WXViewUtils.getRealSubPxByWidth(borderRadius, getInstance().getInstanceViewPortWidth());
+            float[] radii = {val, val, val, val, val, val, val, val};
+
+            RoundingParams roundingParams = getHostView().getHierarchy().getRoundingParams();
+            if (roundingParams == null) {
+                roundingParams = new RoundingParams();
+            } else {
+                float[] cornersRadii = roundingParams.getCornersRadii();
+                if (cornersRadii != null) {
+                    radii = cornersRadii;
+                }
+            }
+            switch (key) {
+                case Constants.Name.BORDER_TOP_LEFT_RADIUS:
+                    radii[0] = radii[1] = val;
+                    break;
+                case Constants.Name.BORDER_TOP_RIGHT_RADIUS:
+                    radii[2] = radii[3] = val;
+                    break;
+                case Constants.Name.BORDER_BOTTOM_RIGHT_RADIUS:
+                    radii[4] = radii[5] = val;
+                    break;
+                case Constants.Name.BORDER_BOTTOM_LEFT_RADIUS:
+                    radii[6] = radii[7] = val;
+                    break;
+            }
+            roundingParams.setCornersRadii(radii);
+            getHostView().getHierarchy().setRoundingParams(roundingParams);
+        }
     }
 }
