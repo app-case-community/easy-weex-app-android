@@ -55,10 +55,11 @@ dependencies {
     implementation 'com.taobao.android:dexposed:0.1.8'
     implementation 'com.loopj.android:android-async-http:1.4.9@aar'
 
-//    implementation 'com.github.yuzhiqiang1993:zxing:2.2.2'
     implementation 'cn.bertsir.zbarLibary:zbarlibary:latest.release'
 
     // weex plugin
+
+    implementation project(":lottie")
 
     // -- bindingx
     implementation 'com.alibaba.android:bindingx-core:1.0.3'

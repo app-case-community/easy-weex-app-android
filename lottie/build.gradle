@@ -22,13 +22,10 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-
-    implementation "com.android.support:support-annotations:$supportLibVersion"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     debugImplementation "com.taobao.android:weex_sdk:$weexVersion:debug@aar"
     releaseImplementation "com.taobao.android:weex_sdk:$weexVersion:release@aar"
 
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 }

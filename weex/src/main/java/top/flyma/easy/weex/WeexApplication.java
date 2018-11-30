@@ -11,10 +11,7 @@ import com.alibaba.weex.commons.adapter.FrescoImageComponent;
 import com.alibaba.weex.commons.adapter.JSExceptionAdapter;
 import com.alibaba.weex.extend.adapter.DefaultAccessibilityRoleAdapter;
 import com.alibaba.weex.extend.adapter.InterceptWXHttpAdapter;
-import com.alibaba.weex.extend.component.RichText;
-import com.alibaba.weex.extend.component.WXComponentSyncTest;
-import com.alibaba.weex.extend.component.WXMask;
-import com.alibaba.weex.extend.component.WXParallax;
+import com.alibaba.weex.extend.component.*;
 import com.alibaba.weex.extend.module.*;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXEnvironment;
@@ -73,6 +70,8 @@ public class WeexApplication extends Application {
              * override default image tag
              */
             WXSDKEngine.registerComponent("image", FrescoImageComponent.class);
+
+            WXSDKEngine.registerComponent("lottie", WXLottie.class);
 
             //Typeface nativeFont = Typeface.createFromAsset(getAssets(), "font/native_font.ttf");
             //WXEnvironment.setGlobalFontFamily("bolezhusun", nativeFont);

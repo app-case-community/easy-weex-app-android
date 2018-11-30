@@ -29,6 +29,7 @@ import com.taobao.weex.common.Constants;
 import com.taobao.weex.ui.action.BasicComponentData;
 import com.taobao.weex.ui.component.WXImage;
 import com.taobao.weex.ui.component.WXVContainer;
+import com.taobao.weex.utils.WXResourceUtils;
 import com.taobao.weex.utils.WXViewUtils;
 
 /**
@@ -77,6 +78,32 @@ public class FrescoImageComponent extends WXImage {
                 break;
         }
         return scaleType;
+    }
+
+    @Override
+    public void setBorderColor(String key, String borderColor) {
+        if (!TextUtils.isEmpty(borderColor)) {
+            int colorInt = WXResourceUtils.getColor(borderColor);
+            RoundingParams roundingParams = getHostView().getHierarchy().getRoundingParams();
+            if (roundingParams == null) {
+                roundingParams = new RoundingParams();
+            }
+            roundingParams.setBorderColor(colorInt);
+            getHostView().getHierarchy().setRoundingParams(roundingParams);
+        }
+    }
+
+    @Override
+    public void setBorderWidth(String key, float borderWidth) {
+        if (borderWidth > 0) {
+            float val = WXViewUtils.getRealSubPxByWidth(borderWidth, getInstance().getInstanceViewPortWidth());
+            RoundingParams roundingParams = getHostView().getHierarchy().getRoundingParams();
+            if (roundingParams == null) {
+                roundingParams = new RoundingParams();
+            }
+            roundingParams.setBorderWidth(val);
+            getHostView().getHierarchy().setRoundingParams(roundingParams);
+        }
     }
 
     @Override
