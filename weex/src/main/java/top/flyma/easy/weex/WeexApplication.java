@@ -50,6 +50,8 @@ public class WeexApplication extends Application {
             WXSDKEngine.registerComponent("synccomponent", WXComponentSyncTest.class);
             WXSDKEngine.registerComponent(WXParallax.PARALLAX, WXParallax.class);
 
+            WXSDKEngine.registerComponent("web", WXWeb.class);
+
             WXSDKEngine.registerComponent("richtext", RichText.class);
             WXSDKEngine.registerModule("render", RenderModule.class);
             WXSDKEngine.registerModule("event", WXEventModule.class);
