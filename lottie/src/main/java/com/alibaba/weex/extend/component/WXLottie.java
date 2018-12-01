@@ -31,6 +31,9 @@ public class WXLottie extends WXComponent<LottieAnimationView> {
 
     private static final String PROP_LOOP = "loop";
 
+    private static final String EMIT_EVENT_LOADED = "loaded";
+    private boolean isLoaded = false;
+
     private boolean isLoop = false;
 
     private String jsonSrc = null;
@@ -76,9 +79,7 @@ public class WXLottie extends WXComponent<LottieAnimationView> {
                     this.getHostView().setAnimationFromUrl(jsonSrc);
                 }
             }
-            if (this.getHostView() != null) {
-                this.getHostView().playAnimation();
-            }
+            this.fireEvent(EMIT_EVENT_LOADED);
         }
     }
 
@@ -95,6 +96,14 @@ public class WXLottie extends WXComponent<LottieAnimationView> {
         WXLogUtils.e(TAG, "set speed:" + speed);
         if (this.getHostView() != null) {
             this.getHostView().setSpeed(speed);
+        }
+    }
+
+    @WXComponentProp(name = "progress")
+    public void setProgress(float progress) {
+        WXLogUtils.e(TAG, "set progress:" + progress);
+        if (this.getHostView() != null) {
+            this.getHostView().setProgress(progress);
         }
     }
 
@@ -117,6 +126,20 @@ public class WXLottie extends WXComponent<LottieAnimationView> {
         if (this.getHostView() != null && ViewCompat.isAttachedToWindow(this.getHostView())) {
             this.getHostView().cancelAnimation();
             this.getHostView().setProgress(0);
+        }
+    }
+
+    @Override
+    public void addEvent(String type) {
+        if (EMIT_EVENT_LOADED.equals(type)) {
+            isLoaded = true;
+        }
+    }
+
+    @Override
+    public void removeEvent(String type) {
+        if (EMIT_EVENT_LOADED.equals(type)) {
+            isLoaded = false;
         }
     }
 
