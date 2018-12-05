@@ -76,6 +76,12 @@ dependencies {
 
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
 
+    implementation("com.alibaba:arouter-api:$arouter_api_version") {
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'support-media-compat'
+    }
+    implementation project(":router")
+
 }
 
 if (file('../license/LICENSE').exists()) {

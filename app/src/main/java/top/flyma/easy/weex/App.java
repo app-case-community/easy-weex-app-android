@@ -5,4 +5,9 @@ public class App extends WeexApplication {
     public void onCreate() {
         super.onCreate();
     }
+
+    @Override
+    boolean isDebug() {
+        return BuildConfig.DEBUG;
+    }
 }

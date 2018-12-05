@@ -1,0 +1,18 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="top.flyma.easy.router">
+    <application>
+        <activity android:name=".SchemeFilterActivity">
+            <!-- Schame -->
+            <intent-filter>
+                <data
+                        android:host="router.flyma.top"
+                        android:scheme="easy"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

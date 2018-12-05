@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
@@ -16,6 +17,8 @@ import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.bridge.WXBridgeManager;
 import com.taobao.weex.common.WXModule;
 import com.taobao.weex.utils.WXLogUtils;
+
+import java.util.Arrays;
 
 public class LocaleNavigatorModule extends WXModule {
     public static final String MSG_SUCCESS = "WX_SUCCESS";
@@ -113,13 +116,16 @@ public class LocaleNavigatorModule extends WXModule {
                     if (TextUtils.isEmpty(scheme)) {
                         builder.scheme("http");
                     }
-
-                    Intent intent = new Intent("android.intent.action.VIEW", builder.build());
-                    intent.addCategory(WEEX);
-                    intent.putExtra("instanceId", this.mWXSDKInstance.getInstanceId());
-                    this.mWXSDKInstance.getContext().startActivity(intent);
-                    if (callback != null) {
-                        callback.invoke("WX_SUCCESS");
+                    if (Arrays.asList(new String[]{"local","http", "https"}).contains(scheme)) {
+                        Intent intent = new Intent("android.intent.action.VIEW", builder.build());
+                        intent.addCategory(WEEX);
+                        intent.putExtra("instanceId", this.mWXSDKInstance.getInstanceId());
+                        this.mWXSDKInstance.getContext().startActivity(intent);
+                        if (callback != null) {
+                            callback.invoke("WX_SUCCESS");
+                        }
+                    } else {
+                        ARouter.getInstance().build(rawUri).navigation();
                     }
                 }
             } catch (Exception var9) {

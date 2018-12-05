@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Easy-Weex</string>
     <string name="scan">扫描</string>
+    <string name="welcome">我是原生界面</string>
 </resources>

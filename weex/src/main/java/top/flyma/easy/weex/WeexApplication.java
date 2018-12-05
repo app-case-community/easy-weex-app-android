@@ -19,15 +19,16 @@ import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.WXSDKManager;
 import com.taobao.weex.bridge.WXBridgeManager;
 import com.taobao.weex.common.WXException;
+import top.flyma.easy.router.RouterUtil;
 import top.flyma.easy.weex.extend.module.NativeModule;
 
 //import com.alibaba.weex.commons.adapter.PicassoImageAdapter;
 
-public class WeexApplication extends Application {
+public abstract class WeexApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        initDebugEnvironment(true, false, "10.10.11.104");
+        initRouter();
         WXBridgeManager.updateGlobalConfig("wson_on");
         WXEnvironment.setOpenDebugLog(true);
         WXEnvironment.setApkDebugable(true);
@@ -128,6 +129,10 @@ public class WeexApplication extends Application {
         });
     }
 
+    private void initRouter() {
+        RouterUtil.init(this, isDebug());
+    }
+
     /**
      * 加载插件
      *
@@ -155,4 +160,6 @@ public class WeexApplication extends Application {
             WXEnvironment.sRemoteDebugProxyUrl = "ws://" + host + ":8091/debugProxy/native";
         }
     }
+
+    abstract boolean isDebug();
 }

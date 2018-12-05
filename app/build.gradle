@@ -2,9 +2,20 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
+apply plugin: 'kotlin-kapt'
+
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'com.alibaba.arouter'
+
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+
 android {
+
     compileSdkVersion project.compileSdkVersion
     defaultConfig {
         applicationId "top.flyma.easy.weex"
@@ -15,10 +26,11 @@ android {
 
         multiDexEnabled true
 
-        ndk{
+        ndk {
             abiFilters "armeabi-v7a", "armeabi"
         }
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -42,5 +54,11 @@ dependencies {
     implementation project(':weex')
 
     implementation 'com.yanzhenjie:permission:2.0.0-rc12'
+
+    implementation("com.alibaba:arouter-api:$arouter_api_version") {
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'support-media-compat'
+    }
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 
 }
