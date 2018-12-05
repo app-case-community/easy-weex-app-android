@@ -36,11 +36,10 @@ public class WXWeb extends com.taobao.weex.ui.component.WXWeb {
         if (TextUtils.isEmpty(url) || getHostView() == null) {
             return;
         }
-        WXLogUtils.d("new web:" + url);
         if (!TextUtils.isEmpty(url)) {
             Uri rewrited = this.getInstance().rewriteUri(Uri.parse(url), URIAdapter.BUNDLE);
             if (Constants.Scheme.LOCAL.equals(rewrited.getScheme())) {
-                String assetName = rewrited.getAuthority() + rewrited.getPath();
+                String assetName = rewrited.getPath().substring(1);
                 loadUrl("file:///android_asset/" + assetName);
             } else if (Constants.Scheme.HTTP.equals(rewrited.getScheme()) || Constants.Scheme.HTTPS.equals(rewrited.getScheme())) {
                 loadUrl(getInstance().rewriteUri(Uri.parse(url), URIAdapter.WEB).toString());

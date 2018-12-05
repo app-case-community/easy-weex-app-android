@@ -1,1 +1,1 @@
-include ':app', ':weex', ':img_picasso', ':img_fresco', ':lottie', ':router'
+include ':app', ':weex', ':img_picasso', ':img_fresco', ':lottie', ':router', ':weex_assets'

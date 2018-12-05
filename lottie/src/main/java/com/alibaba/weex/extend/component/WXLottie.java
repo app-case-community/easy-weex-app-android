@@ -62,14 +62,13 @@ public class WXLottie extends WXComponent<LottieAnimationView> {
 
     @WXComponentProp(name = "src")
     private void setJsonSrc(String jsonSrc) {
-        WXLogUtils.e(TAG, "set src:" + jsonSrc);
         if (!TextUtils.isEmpty(jsonSrc)) {
             IWXHttpAdapter adapter = WXSDKEngine.getIWXHttpAdapter();
             Uri rewrited = this.getInstance().rewriteUri(Uri.parse(jsonSrc), URIAdapter.BUNDLE);
 
             if (Constants.Scheme.LOCAL.equals(rewrited.getScheme())) {
                 if (this.getHostView() != null) {
-                    String assetName = rewrited.getAuthority() + rewrited.getPath();
+                    String assetName = rewrited.getPath().substring(1);
                     this.getHostView().setAnimation(assetName);
                 }
             } else if (Constants.Scheme.FILE.equals(rewrited.getScheme())) {
