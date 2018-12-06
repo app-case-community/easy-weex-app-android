@@ -6,46 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>F2</title>
-    <style type="text/css">
-        html {
-            overflow-x: hidden;
-            overflow-y: hidden;
-        }
-
-        body {
-            overflow-x: hidden;
-            overflow-y: hidden;
-            margin: 0px;
-            padding: 0px;
-        }
-    </style>
+    <link rel="stylesheet" href="./styles.css">
     <script src="./f2.min.js"></script>
 </head>
 
 <body>
-    <canvas id="myChart" width="400" height="460"></canvas>
+    <canvas id="myChart"></canvas>
+    <script src="./utils.js"></script>
     <script>
-        document.getElementById('myChart').width = document.documentElement.clientWidth
-        document.getElementById('myChart').height = document.documentElement.clientHeight
-        // F2 对数据源格式的要求，仅仅是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
-        // Step 1: 创建 Chart 对象
-        var chart = new F2.Chart({
-            id: 'myChart',
-            pixelRatio: window.devicePixelRatio // 指定分辨率
-        });
-
-        window.addEventListener('message', function (event) {
-            var data = event.data
-            if ('setData' === data.type) {
-                // Step 2: 载入数据源
-                chart.source(data.data);
-            } else if ('render' === data.type) {
-                // Step 3：创建图形语法，绘制柱状图，由 genre 和 sold 两个属性决定图形位置，genre 映射至 x 轴，sold 映射至 y 轴
-                chart.interval().position('genre*sold').color('genre');
-                // Step 4: 渲染图表
-                chart.render();
-            }
-        })
+        var chart = createChart('myChart');
+        function drawColumnChart() {
+            // Step 3：创建图形语法，绘制柱状图，由 genre 和 sold 两个属性决定图形位置，genre 映射至 x 轴，sold 映射至 y 轴
+            chart.interval().position('genre*sold').color('genre');
+        }
     </script>
 </body>
 
