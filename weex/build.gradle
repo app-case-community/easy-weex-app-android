@@ -43,17 +43,17 @@ dependencies {
 //    implementation project(':img_picasso')
     implementation project(':img_fresco')
 
-    debugImplementation 'com.taobao.android:weex_inspector:0.18.10'
-    releaseImplementation 'com.taobao.android:weex_inspector:0.18.10'
+//    debugImplementation 'com.taobao.android:weex_inspector:0.18.10'
+//    releaseImplementation 'com.taobao.android:weex_inspector:0.18.10'
 
     implementation 'com.taobao.android.weex_inspection:protocol:1.1.4.1'
-    debugImplementation 'com.android.support.test.espresso:espresso-idling-resource:2.2.2'
+//    debugImplementation 'com.android.support.test.espresso:espresso-idling-resource:2.2.2'
     implementation 'com.taobao.android.weex_inspection:urlconnection_interceptor:1.0.0'
 
-    debugImplementation 'com.taobao.android:weex_analyzer:0.1.0.5'
+//    debugImplementation 'com.taobao.android:weex_analyzer:0.1.0.5'
 
-    implementation 'com.taobao.android:dexposed:0.1.8'
-    implementation 'com.loopj.android:android-async-http:1.4.9@aar'
+//    implementation 'com.taobao.android:dexposed:0.1.8'
+//    implementation 'com.loopj.android:android-async-http:1.4.9@aar'
 
     implementation project(":weex_assets")
 

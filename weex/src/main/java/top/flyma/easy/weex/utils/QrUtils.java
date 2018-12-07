@@ -48,9 +48,10 @@ public class QrUtils {
                         intent.addCategory("weex.intent.category.dynamic");
                         context.startActivity(intent);
                     } else if (uri.getQueryParameterNames().contains("_wx_devtool")) {
-                        WXEnvironment.sRemoteDebugProxyUrl = uri.getQueryParameter("_wx_devtool");
-                        WXEnvironment.sDebugServerConnectable = true;
-                        WXSDKEngine.reload();
+//                        WXEnvironment.sRemoteDebugProxyUrl = uri.getQueryParameter("_wx_devtool");
+//                        WXEnvironment.sDebugServerConnectable = true;
+//                        WXSDKEngine.reload();
+                        Toast.makeText(context, "不支持调试", Toast.LENGTH_LONG).show();
                     } else {
                         Intent intent = new Intent(context, WXPageActivity.class);
                         intent.setData(Uri.parse(code));
