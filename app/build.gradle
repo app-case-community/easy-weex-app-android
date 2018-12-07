@@ -76,8 +76,14 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
 
-    debugImplementation "com.taobao.android:weex_sdk:$weexVersion:debug@aar"
-    releaseImplementation "com.taobao.android:weex_sdk:$weexVersion:release@aar"
+    if (useWeexaar) {
+        debugImplementation project(":weex_sdk:debug")
+        releaseImplementation project(":weex_sdk:release")
+    } else {
+        debugImplementation "com.taobao.android:weex_sdk:$weexVersion:debug@aar"
+        releaseImplementation "com.taobao.android:weex_sdk:$weexVersion:release@aar"
+    }
+
     implementation project(':weex')
 
     implementation 'com.yanzhenjie:permission:2.0.0-rc12'

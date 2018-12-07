@@ -39,6 +39,8 @@ allprojects {
         lottieVersion="2.7.0"
         arouter_api_version="1.4.1"
         arouter_compiler_version="1.2.2"
+
+        useWeexaar = true
     }
 }
 

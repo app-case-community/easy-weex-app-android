@@ -24,8 +24,13 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    debugImplementation "com.taobao.android:weex_sdk:$weexVersion:debug@aar"
-    releaseImplementation "com.taobao.android:weex_sdk:$weexVersion:release@aar"
+    if (useWeexaar) {
+        debugImplementation project(":weex_sdk:debug")
+        releaseImplementation project(":weex_sdk:release")
+    } else {
+        debugImplementation "com.taobao.android:weex_sdk:$weexVersion:debug@aar"
+        releaseImplementation "com.taobao.android:weex_sdk:$weexVersion:release@aar"
+    }
 
     implementation "com.airbnb.android:lottie:$lottieVersion"
 }

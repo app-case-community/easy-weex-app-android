@@ -26,8 +26,13 @@ dependencies {
 
     implementation "com.android.support:support-annotations:$supportLibVersion"
 
-    debugImplementation "com.taobao.android:weex_sdk:$weexVersion:debug@aar"
-    releaseImplementation "com.taobao.android:weex_sdk:$weexVersion:release@aar"
+    if (useWeexaar) {
+        debugImplementation project(":weex_sdk:debug")
+        releaseImplementation project(":weex_sdk:release")
+    } else {
+        debugImplementation "com.taobao.android:weex_sdk:$weexVersion:debug@aar"
+        releaseImplementation "com.taobao.android:weex_sdk:$weexVersion:release@aar"
+    }
 
     implementation 'com.squareup.picasso:picasso:2.5.2'
 

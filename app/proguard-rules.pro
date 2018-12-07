@@ -24,6 +24,7 @@
 -dontwarn com.alibaba.fastjson.**
 -dontwarn com.alibaba.weex.**
 -dontwarn com.taobao.weex.**
+-dontwarn com.taobao.gcanvas.**
 -dontwarn com.alibaba.android.arouter.**
 -dontwarn cn.bertsir.zbar.**
 
@@ -33,8 +34,10 @@
 -dontnote kotlin.internal.**
 -dontnote com.facebook.**
 -dontnote org.apache.**
+-dontnote com.taobao.gcanvas.**
 -dontnote com.taobao.weex.analyzer.**
 -dontnote com.taobao.weex.devtools.**
+-dontnote com.alibaba.android.bindingx.**
 
 -keep class bolts.** { *; }
 -keep class okio.** { *; }
@@ -45,6 +48,7 @@
 -keep class com.alibaba.android.arouter.** { *; }
 -keep class com.taobao.weex.** { *; }
 -keep class com.alibaba.weex.** { *; }
--keep class com.alibaba.android.bindingx.**
+-keep class com.taobao.gcanvas.** { *; }
+-keep class com.alibaba.android.bindingx.** { *; }
 -keep class com.airbnb.lottie.** { *; }
 -keep class com.facebook.** { *; }

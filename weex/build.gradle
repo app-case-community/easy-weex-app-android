@@ -32,8 +32,13 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
     implementation "com.android.support:design:$supportLibVersion"
 
-    debugImplementation "com.taobao.android:weex_sdk:$weexVersion:debug@aar"
-    releaseImplementation "com.taobao.android:weex_sdk:$weexVersion:release@aar"
+    if (useWeexaar) {
+        debugImplementation project(":weex_sdk:debug")
+        releaseImplementation project(":weex_sdk:release")
+    } else {
+        debugImplementation "com.taobao.android:weex_sdk:$weexVersion:debug@aar"
+        releaseImplementation "com.taobao.android:weex_sdk:$weexVersion:release@aar"
+    }
 
     implementation "com.alibaba:fastjson:${fastjsonLibVersion}"
     implementation 'com.squareup.okhttp:okhttp:2.3.0'
