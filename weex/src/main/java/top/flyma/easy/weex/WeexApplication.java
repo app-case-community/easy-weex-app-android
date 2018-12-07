@@ -13,6 +13,8 @@ import com.alibaba.weex.extend.adapter.DefaultAccessibilityRoleAdapter;
 import com.alibaba.weex.extend.adapter.InterceptWXHttpAdapter;
 import com.alibaba.weex.extend.component.*;
 import com.alibaba.weex.extend.module.*;
+import com.taobao.gcanvas.bridges.weex.GCanvasWeexModule;
+import com.taobao.gcanvas.bridges.weex.WXGCanvasWeexComponent;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXEnvironment;
 import com.taobao.weex.WXSDKEngine;
@@ -30,8 +32,8 @@ public abstract class WeexApplication extends Application {
         super.onCreate();
         initRouter();
         WXBridgeManager.updateGlobalConfig("wson_on");
-        WXEnvironment.setOpenDebugLog(true);
-        WXEnvironment.setApkDebugable(true);
+        WXEnvironment.setOpenDebugLog(isDebug());
+        WXEnvironment.setApkDebugable(isDebug());
         WXSDKEngine.addCustomOptions("appName", "easy-weex");
         WXSDKEngine.addCustomOptions("appGroup", "top.flyme.easy");
 
@@ -140,8 +142,8 @@ public abstract class WeexApplication extends Application {
      */
     private void loadPlugins() throws WXException {
         BindingX.register();
-//        WXSDKEngine.registerModule("gcanvas", GCanvasWeexModule.class);
-//        WXSDKEngine.registerComponent("gcanvas", WXGCanvasWeexComponent.class);
+        WXSDKEngine.registerModule("gcanvas", GCanvasWeexModule.class);
+        WXSDKEngine.registerComponent("gcanvas", WXGCanvasWeexComponent.class);
     }
 
     /**

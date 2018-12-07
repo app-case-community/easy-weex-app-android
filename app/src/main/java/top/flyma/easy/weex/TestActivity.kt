@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.alibaba.android.arouter.facade.annotation.Route
+import top.flyma.easy.weex.demo.R
 
 @Route(path = "/second/test")
 class TestActivity : AppCompatActivity() {

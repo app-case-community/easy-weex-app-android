@@ -15,10 +15,19 @@ kapt {
 }
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'snice'
+            keyPassword '520Tengai'
+            storeFile file('/Users/zhuzhe/snice.jks')
+            storePassword '520Tengai'
+            v2SigningEnabled false
+        }
+    }
 
     compileSdkVersion project.compileSdkVersion
     defaultConfig {
-        applicationId "top.flyma.easy.weex"
+        applicationId "top.flyma.easy.weex.demo"
         minSdkVersion project.minSdkVersion
         targetSdkVersion project.targetSdkVersion
         versionCode 1
@@ -34,12 +43,26 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [
+                    FILE_PROVIDER: "top.flyma.easy.weex.fileprovider"
+            ]
         }
         debug {
+            applicationIdSuffix ".dev"
+            manifestPlaceholders = [
+                    FILE_PROVIDER: "top.flyma.easy.weex.dev.fileprovider"
+            ]
             debuggable true
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
@@ -50,7 +73,6 @@ dependencies {
 
     debugImplementation "com.taobao.android:weex_sdk:$weexVersion:debug@aar"
     releaseImplementation "com.taobao.android:weex_sdk:$weexVersion:release@aar"
-
     implementation project(':weex')
 
     implementation 'com.yanzhenjie:permission:2.0.0-rc12'
@@ -60,5 +82,4 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-media-compat'
     }
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
-
 }

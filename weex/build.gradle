@@ -61,21 +61,28 @@ dependencies {
 
     implementation project(":lottie")
 
-    // -- bindingx
+    // bindingx
     implementation 'com.alibaba.android:bindingx-core:1.0.3'
     implementation 'com.alibaba.android:bindingx_weex_plugin:1.0.3'
 
-//    // -- gcanvas 等待gcanvas升级兼容，目前仅支持weex 0.17
+    // gcanvas
+    implementation "com.taobao.gcanvas.adapters:img:1.0.0"
+    implementation "com.taobao.gcanvas.adapters:img_fresco:1.0.1"
+    implementation("com.taobao.gcanvas.bridges:spec:1.0.1") {
+        exclude group: 'com.taobao.gcanvas', module: 'corelib'
+    }
 //    implementation "com.taobao.gcanvas:corelib:1.0.4"
-//    implementation "com.taobao.gcanvas.adapters:img:1.0.0"
-//    implementation "com.taobao.gcanvas.adapters:img_picasso:1.0.1"
-////    compile "com.taobao.gcanvas.adapters:img_fresco:1.0.1"
-//    implementation "com.taobao.gcanvas.bridges:spec:1.0.1"
 //    implementation "com.taobao.gcanvas.bridges:weex:1.0.2"
+    implementation project(":gcanvas_core")
+    implementation project(":gcanvas_library")
+    implementation project(":gcanvas_weex_bridge")
 
+    // qr/zbar
     implementation 'cn.bertsir.zbarLibary:zbarlibary:latest.release'
+    // statusbar
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
 
+    // arouter
     implementation("com.alibaba:arouter-api:$arouter_api_version") {
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'support-media-compat'

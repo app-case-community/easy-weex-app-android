@@ -1,1 +1,4 @@
-include ':app', ':weex', ':img_picasso', ':img_fresco', ':lottie', ':router', ':weex_assets'
+include ':app'
+include ':lottie', ':router'
+include ':weex', ':img_picasso', ':img_fresco', ':weex_assets'
+include ':gcanvas_core', ':gcanvas_library', ':gcanvas_weex_bridge'

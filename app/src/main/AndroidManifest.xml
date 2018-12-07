@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           tools:ignore="AppLinkUrlError"
-          package="top.flyma.easy.weex">
+          package="top.flyma.easy.weex.demo">
 
     <application
-            android:name=".App"
+            android:name="top.flyma.easy.weex.App"
             android:allowBackup="true"
             android:hardwareAccelerated="true"
             android:icon="@mipmap/ic_launcher"
@@ -14,7 +14,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:replace="android:allowBackup">
-        <activity android:name=".MainActivity">
+        <activity android:name="top.flyma.easy.weex.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -44,7 +44,7 @@
 
         <provider
                 android:name="android.support.v4.content.FileProvider"
-                android:authorities="top.flyma.easy.weex.fileprovider"
+                android:authorities="${FILE_PROVIDER}"
                 android:exported="false"
                 android:grantUriPermissions="true">
             <meta-data
@@ -52,7 +52,7 @@
                     android:resource="@xml/filepaths"/>
         </provider>
 
-        <activity android:name=".TestActivity">
+        <activity android:name="top.flyma.easy.weex.TestActivity">
         </activity>
     </application>
 

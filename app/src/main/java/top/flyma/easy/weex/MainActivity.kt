@@ -13,6 +13,7 @@ import com.taobao.weex.WXSDKEngine
 import com.yanzhenjie.permission.AndPermission
 import com.yanzhenjie.permission.Permission
 import kotlinx.android.synthetic.main.activity_main.*
+import top.flyma.easy.weex.demo.R
 import top.flyma.easy.weex.utils.QrUtils
 
 
@@ -50,8 +51,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "请输入地址", Toast.LENGTH_SHORT).show()
                 return
             }
-            var intent: Intent = Intent(this, WXPageActivity::class.java)
-            intent.putExtra("bundleUrl", editText.text.toString())
+            var intent = Intent(this, WXPageActivity::class.java)
+//            var url = "local://weex.com/pages/demo/js/index.js"
+            var url = editText.text.toString()
+            intent.putExtra("bundleUrl", url)
             startActivity(intent)
         }
     }
