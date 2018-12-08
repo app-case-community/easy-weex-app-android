@@ -1,5 +1,14 @@
 include ':app'
-include ':lottie', ':router'
+// weex_sdk
 include ':weex_sdk:debug', ':weex_sdk:release'
-include ':weex', ':img_picasso', ':img_fresco', ':weex_assets'
-include ':gcanvas_core', ':gcanvas_library', ':gcanvas_weex_bridge'
+// wex ext
+include ':img:fresco'
+project(':img:fresco').projectDir = new File(settingsDir, 'img/fresco')
+include ':img:picasso'
+project(':img:picasso').projectDir = new File(settingsDir, 'img/picasso')
+include ':weex_kit'
+include ':weex_assets'
+// gcanvas
+include ':gcanvas:core', ':gcanvas:library', ':gcanvas:weex_bridge'
+// third sdk
+include ':weex_lottie', ':router'

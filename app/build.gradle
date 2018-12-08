@@ -84,10 +84,11 @@ dependencies {
         releaseImplementation "com.taobao.android:weex_sdk:$weexVersion:release@aar"
     }
 
-    implementation project(':weex')
+    implementation project(':weex_kit')
 
     implementation 'com.yanzhenjie:permission:2.0.0-rc12'
 
+    // arouter
     implementation("com.alibaba:arouter-api:$arouter_api_version") {
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'support-media-compat'

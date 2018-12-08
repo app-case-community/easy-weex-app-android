@@ -25,6 +25,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "com.alibaba:arouter-api:$arouter_api_version"
+    compileOnly "com.alibaba:arouter-api:$arouter_api_version"
 
 }

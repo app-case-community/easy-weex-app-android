@@ -17,8 +17,18 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            buildConfigField 'Boolean', 'useGCanvas', "$useGCanvas"
+            buildConfigField 'Boolean', 'useLottie', "$useLottie"
+            buildConfigField 'Boolean', 'useBindingx', "$useBindingx"
+
         }
         debug {
+
+            buildConfigField 'Boolean', 'useGCanvas', "$useGCanvas"
+            buildConfigField 'Boolean', 'useLottie', "$useLottie"
+            buildConfigField 'Boolean', 'useBindingx', "$useBindingx"
+
             debuggable true
         }
     }
@@ -45,8 +55,8 @@ dependencies {
     implementation 'com.squareup.okhttp:okhttp-ws:2.3.0'
     implementation 'com.squareup.okio:okio:1.0.1'
 
-//    implementation project(':img_picasso')
-    implementation project(':img_fresco')
+//    implementation project(':img:picasso')
+    implementation project(':img:fresco')
 
 //    debugImplementation 'com.taobao.android:weex_inspector:0.18.10'
 //    releaseImplementation 'com.taobao.android:weex_inspector:0.18.10'
@@ -64,23 +74,29 @@ dependencies {
 
     // weex plugin
 
-    implementation project(":lottie")
-
-    // bindingx
-    implementation 'com.alibaba.android:bindingx-core:1.0.3'
-    implementation 'com.alibaba.android:bindingx_weex_plugin:1.0.3'
-
-    // gcanvas
-    implementation "com.taobao.gcanvas.adapters:img:1.0.0"
-    implementation "com.taobao.gcanvas.adapters:img_fresco:1.0.1"
-    implementation("com.taobao.gcanvas.bridges:spec:1.0.1") {
-        exclude group: 'com.taobao.gcanvas', module: 'corelib'
+    if (useLottie) {
+        implementation project(":weex_lottie")
     }
+
+    if (useBindingx) {
+        // bindingx
+        implementation 'com.alibaba.android:bindingx-core:1.0.3'
+        implementation 'com.alibaba.android:bindingx_weex_plugin:1.0.3'
+    }
+
+    if (useGCanvas) {
+        // gcanvas
+        implementation "com.taobao.gcanvas.adapters:img:1.0.0"
+        implementation "com.taobao.gcanvas.adapters:img_fresco:1.0.1"
+        implementation("com.taobao.gcanvas.bridges:spec:1.0.1") {
+            exclude group: 'com.taobao.gcanvas', module: 'corelib'
+        }
 //    implementation "com.taobao.gcanvas:corelib:1.0.4"
 //    implementation "com.taobao.gcanvas.bridges:weex:1.0.2"
-    implementation project(":gcanvas_core")
-    implementation project(":gcanvas_library")
-    implementation project(":gcanvas_weex_bridge")
+        implementation project(":gcanvas:core")
+        implementation project(":gcanvas:library")
+        implementation project(":gcanvas:weex_bridge")
+    }
 
     // qr/zbar
     implementation 'cn.bertsir.zbarLibary:zbarlibary:latest.release'
