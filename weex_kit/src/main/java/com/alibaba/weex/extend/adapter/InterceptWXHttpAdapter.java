@@ -18,9 +18,9 @@
  */
 package com.alibaba.weex.extend.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import  androidx.annotation.NonNull;
 
+import androidx.annotation.Nullable;
 import com.taobao.weex.adapter.DefaultWXHttpAdapter;
 import com.taobao.weex.urlconnection.ByteArrayRequestEntity;
 import com.taobao.weex.urlconnection.SimpleRequestEntity;

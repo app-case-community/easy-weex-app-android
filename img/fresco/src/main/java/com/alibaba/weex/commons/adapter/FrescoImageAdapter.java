@@ -20,10 +20,10 @@ package com.alibaba.weex.commons.adapter;
 
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
+import androidx.annotation.Nullable;
 import com.facebook.common.executors.UiThreadImmediateExecutorService;
 import com.facebook.common.internal.Preconditions;
 import com.facebook.common.logging.FLog;

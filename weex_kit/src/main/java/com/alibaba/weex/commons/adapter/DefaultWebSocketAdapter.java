@@ -18,7 +18,7 @@
  */
 package com.alibaba.weex.commons.adapter;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.alibaba.weex.commons.util.WSEventReporter;
 import com.squareup.okhttp.Headers;

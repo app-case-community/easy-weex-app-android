@@ -5,9 +5,10 @@ buildscript {
     ext.arouter_register_version = '1.0.2'
 
     repositories {
-        mavenLocal()
-        google()
-        jcenter()
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
     }
 
     dependencies {
@@ -19,26 +20,30 @@ buildscript {
 
 allprojects {
     repositories {
-        mavenLocal()
-        google()
-        jcenter()
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://jitpack.io' }
     }
 
     ext {
-        compileSdkVersion=28
-        buildToolsVersion="1.0.0"
-        minSdkVersion=23
-        targetSdkVersion=28
+        compileSdkVersion = 28
+        buildToolsVersion = "1.0.0"
+        minSdkVersion = 23
+        targetSdkVersion = 28
 
-        supportLibVersion="28.0.0"
-        androidXVersion=""
-        fastjsonLibVersion="1.1.70.android"
-        frescoVersion="1.11.0+"
-        weexVersion="0.19.0.5"
-        lottieVersion="2.7.0"
-        arouter_api_version="1.4.1"
-        arouter_compiler_version="1.2.2"
+        supportLibVersion = "28.0.0"
+        androidXVersion = ""
+        fastjsonLibVersion = "1.1.71.android"
+        frescoVersion = "1.13.0"
+        weexVersion = "0.20.3.0-beta@aar"
+        lottieVersion = "3.0.1"
+        arouter_api_version = "1.5.0"
+        arouter_compiler_version = "1.2.2"
+
+        versions = [:]
+        versions.okhttp = "2.3.0"
+
 
         // switch config
         useWeexaar = true

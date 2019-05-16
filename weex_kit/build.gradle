@@ -37,22 +37,22 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
-    implementation "com.android.support:support-v4:$supportLibVersion"
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
-    implementation "com.android.support:design:$supportLibVersion"
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    implementation "androidx.appcompat:appcompat:1.0.0"
+    implementation "com.google.android.material:material:1.0.0"
+    implementation("androidx.media:media:1.0.0")
 
     if (useWeexaar) {
         debugImplementation project(":weex_sdk:debug")
         releaseImplementation project(":weex_sdk:release")
     } else {
-        debugImplementation "com.taobao.android:weex_sdk:$weexVersion:debug@aar"
-        releaseImplementation "com.taobao.android:weex_sdk:$weexVersion:release@aar"
+        implementation "com.taobao.android:weex_sdk:$weexVersion"
     }
 
     implementation "com.alibaba:fastjson:${fastjsonLibVersion}"
-    implementation 'com.squareup.okhttp:okhttp:2.3.0'
-    implementation 'com.squareup.okhttp:okhttp-ws:2.3.0'
+    implementation "com.squareup.okhttp:okhttp:${versions.okhttp}"
+    implementation "com.squareup.okhttp:okhttp-ws:${versions.okhttp}"
     implementation 'com.squareup.okio:okio:1.0.1'
 
 //    implementation project(':img:picasso')
@@ -89,7 +89,7 @@ dependencies {
         implementation "com.taobao.gcanvas.adapters:img:1.0.0"
         implementation "com.taobao.gcanvas.adapters:img_fresco:1.0.1"
         implementation("com.taobao.gcanvas.bridges:spec:1.0.1") {
-            exclude group: 'com.taobao.gcanvas', module: 'corelib'
+            exclude module: 'corelib'
         }
 //    implementation "com.taobao.gcanvas:corelib:1.0.4"
 //    implementation "com.taobao.gcanvas.bridges:weex:1.0.2"
@@ -99,14 +99,20 @@ dependencies {
     }
 
     // qr/zbar
-    implementation 'cn.bertsir.zbarLibary:zbarlibary:latest.release'
+    implementation('cn.bertsir.zbarLibary:zbarlibary:latest.release') {
+        exclude module: 'support-v4'
+        exclude module: 'support-media-compat'
+    }
     // statusbar
-    implementation 'com.jaeger.statusbarutil:library:1.5.1'
+    implementation('com.jaeger.statusbarutil:library:1.5.1') {
+        exclude module: 'support-v4'
+        exclude module: 'design'
+    }
 
     // arouter
     implementation("com.alibaba:arouter-api:$arouter_api_version") {
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'support-media-compat'
+        exclude module: 'support-v4'
+        exclude module: 'support-media-compat'
     }
     implementation project(":router")
 

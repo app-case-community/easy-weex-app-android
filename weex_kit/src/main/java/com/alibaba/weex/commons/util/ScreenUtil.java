@@ -21,9 +21,9 @@ package com.alibaba.weex.commons.util;
 import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.os.Build;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

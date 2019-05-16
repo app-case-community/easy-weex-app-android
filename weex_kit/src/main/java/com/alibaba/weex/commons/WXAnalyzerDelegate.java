@@ -19,11 +19,11 @@
 package com.alibaba.weex.commons;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import com.taobao.weex.WXSDKInstance;
 
 import java.lang.reflect.Constructor;

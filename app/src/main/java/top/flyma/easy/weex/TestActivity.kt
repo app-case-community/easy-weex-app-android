@@ -1,8 +1,8 @@
 package top.flyma.easy.weex
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.facade.annotation.Route
 import top.flyma.easy.weex.demo.R
 

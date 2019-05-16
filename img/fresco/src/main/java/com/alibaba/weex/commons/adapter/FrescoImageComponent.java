@@ -19,9 +19,9 @@
 package com.alibaba.weex.commons.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.ImageView;
+import androidx.annotation.NonNull;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.RoundingParams;
 import com.taobao.weex.WXSDKInstance;

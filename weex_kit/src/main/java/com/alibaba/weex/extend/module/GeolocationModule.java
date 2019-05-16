@@ -25,9 +25,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.LocalBroadcastManager;
 
+import androidx.core.app.ActivityCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.alibaba.weex.extend.module.location.ILocatable;
 import com.alibaba.weex.extend.module.location.LocationFactory;
 import com.taobao.weex.WXSDKManager;

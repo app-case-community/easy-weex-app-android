@@ -30,9 +30,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 
+import androidx.core.app.ActivityCompat;
 import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.bridge.SimpleJSCallback;
 import com.taobao.weex.utils.WXLogUtils;
