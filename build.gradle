@@ -36,7 +36,7 @@ allprojects {
         androidXVersion = ""
         fastjsonLibVersion = "1.1.71.android"
         frescoVersion = "1.13.0"
-        weexVersion = "0.20.3.0-beta@aar"
+        weexVersion = "0.26.0@aar"
         lottieVersion = "3.0.1"
         arouter_api_version = "1.5.0"
         arouter_compiler_version = "1.2.2"
